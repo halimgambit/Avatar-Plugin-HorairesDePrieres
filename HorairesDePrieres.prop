@@ -1,0 +1,14 @@
+{
+	"modules": { 
+		"HorairesDePrieres": {
+			"version": "1.0",
+			"name": "heuresdeprieres",
+			"cleApi": "",
+			"rules": {
+				"prochainPriere": ["prayer","pray * hour","prayer time"],
+				"command2": ["test * (command|order) * (two|2)"]
+			}
+		}
+	}
+}
+			
