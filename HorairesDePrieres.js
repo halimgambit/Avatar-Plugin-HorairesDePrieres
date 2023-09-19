@@ -21,7 +21,6 @@ function prochainPriere (data, client) {
 	.then(response => response.json())
 	.then(response1 => response1.city);
 	
-	const cleApi = Config.modules.HorairesDePrieres.cleApi;
 	const cheerio = require("cheerio");
 	fetch(`https://www.al-hamdoulillah.com/horaires-prieres/monde/europe/france/${ville.toLowerCase()}.html#jour`)
 	.then(response => {
