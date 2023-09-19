@@ -16,13 +16,6 @@ exports.action = function(data, callback){
 
 function prochainPriere (data, client) {
 
-	if (!Config.modules.HorairesDePrieres.cleApi) {
-        Avatar.speak("La configuration de la clé api est manquante", data.client, () => {
-        Avatar.Speech.end(data.client);
-        });
-        return;
-    }
-
 	async function appel () {
 	let ville = await fetch('http://ip-api.com/json/')
 	.then(response => response.json())
@@ -30,17 +23,17 @@ function prochainPriere (data, client) {
 	
 	const cleApi = Config.modules.HorairesDePrieres.cleApi;
 	const cheerio = require("cheerio");
-	fetch(`https://scrape.abstractapi.com/v1/?api_key=${cleApi}&url=https://www.al-hamdoulillah.com/horaires-prieres/monde/europe/france/${ville.toLowerCase()}.html#jour`)
+	fetch(`https://www.al-hamdoulillah.com/horaires-prieres/monde/europe/france/${ville.toLowerCase()}.html#jour`)
 	.then(response => {
 		if (!response.ok) {
 		  throw Error(response.statusText);
 		}
 		return response.text();
 	  })
-		.then((body) => {
-		const $ = cheerio.load(body);
-		const nextprayer = $('#today > tbody > tr > td').text();
-		Avatar.speak(`Salam alaikoum, Voici les heures de priére à ${ville.toLowerCase()}${': '}${nextprayer}`, data.client, () => {
+		.then((html) => {
+		const $ = cheerio.load(html);
+		const heurePriere = $('table').find('#today').text();
+		Avatar.speak(`Salam alaikoum, Aujour'dhui à ${ville.toLowerCase()}${' '}${heurePriere}`, data.client, () => {
 			Avatar.Speech.end(data.client);
 	});
 	})
