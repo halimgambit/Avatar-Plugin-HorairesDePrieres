@@ -22,7 +22,7 @@ function prochainPriere (data, client) {
 	.then(response1 => response1.city);
 	
 	const cheerio = require("cheerio");
-	fetch(`https://www.al-hamdoulillah.com/horaires-prieres/monde/europe/france/${ville.toLowerCase()}.html#jour`)
+	fetch(`https://www.al-hamdoulillah.com/horaires-prieres/monde/europe/france/${ville.toLowerCase()}.html`)
 	.then(response => {
 		if (!response.ok) {
 		  throw Error(response.statusText);
